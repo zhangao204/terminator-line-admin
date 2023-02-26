@@ -1,5 +1,5 @@
 import {createApp} from 'vue'
-import {Quasar} from 'quasar'
+import {Quasar, Notify} from 'quasar'
 import App from '@/App.vue'
 import router from '@/router'
 import i18n from "@/i18n";
@@ -18,7 +18,12 @@ app.use(i18n)
 app.use(router)
 
 app.use(Quasar, {
-    plugins: {}
+    plugins: {
+        Notify
+    },
+    config: {
+        notify: {}
+    }
 })
 
 app.mount('#app')
