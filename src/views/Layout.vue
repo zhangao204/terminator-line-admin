@@ -50,6 +50,13 @@
 
     <q-drawer show-if-above v-model="rightDrawerOpen" side="right" bordered>
       <!-- drawer content -->
+      <div class="login-info q-pa-md text-white">
+        <q-avatar class="avatar">
+          <img src="https://cdn.quasar.dev/img/avatar.png" alt="avatar">
+        </q-avatar>
+        <h6 class="username">{{ username }}</h6>
+        <p class="text-body2">{{ email }}</p>
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -61,11 +68,23 @@
 
 <script setup>
 import {ref} from 'vue'
+import {getLoginInfo} from '@/utils/auth.js'
 
 const link = ref('home')
 
 const leftDrawerOpen = ref(false)
 const rightDrawerOpen = ref(false)
+
+const username = ref('TerminatorLine')
+const email = ref('TerminatorLine@stoutstorm.com')
+
+const loginInfo = getLoginInfo()
+
+console.log(loginInfo)
+
+// username.value = loginInfo['username']
+// email.value = loginInfo['email']
+
 
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
@@ -80,4 +99,13 @@ const toggleRightDrawer = () => {
 .active-link
   color: white
   background: $secondary
+
+.username
+  margin: 10px 0 0 0
+
+.avatar
+  margin-top: 60px
+
+.login-info
+  background-image: linear-gradient(45deg, #FFAACF, #B4E4FF)
 </style>

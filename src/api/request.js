@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Notify from '@/utils/notify.js'
 import {getToken} from '@/utils/auth.js'
 
 const baseURL = 'http://127.0.0.1:8080'
@@ -28,8 +27,7 @@ instance.interceptors.response.use(
         return response
     },
     error => {
-        Notify.notifyFailure(error.message)
-        return Promise.reject(error.response)
+        return Promise.reject(error)
     }
 );
 

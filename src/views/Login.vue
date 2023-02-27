@@ -38,7 +38,7 @@ import {ref} from 'vue'
 import {useRouter} from 'vue-router'
 import Notify from '@/utils/notify.js'
 import {login} from '@/api/login.js'
-import {setToken} from '@/utils/auth.js'
+import {setToken, setLoginInfo} from '@/utils/auth.js'
 
 const email = ref(null)
 const password = ref(null)
@@ -55,13 +55,19 @@ const onSubmit = () => {
   login(info).then(
       (response) => {
         setToken(response.data.token)
+        setLoginInfo(response.data)
         router.push({
           name: 'HOME'
         })
         Notify.notifySuccess('登录成功')
       },
       (error) => {
-        Notify.notifyFailure(error.data.error_msg)
+        console.log(error)
+        if (error.response) {
+          Notify.notifyFailure(error.response.data.error_msg)
+        } else {
+          Notify.notifyFailure('请求已发出，但未收到服务器的任何响应，请检查你的网络情况以及后端服务器的在线状态')
+        }
       }
   )
 }
